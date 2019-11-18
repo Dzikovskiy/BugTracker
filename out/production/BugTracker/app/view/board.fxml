@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #23374d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.BoardController">
+   <children>
+      <AnchorPane prefHeight="102.0" prefWidth="800.0" style="-fx-background-color: #63C7B2;">
+         <children>
+            <Text fill="#f4f1de" layoutX="287.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BugTracker" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe WP Semibold" size="44.0" />
+               </font>
+            </Text>
+            <Button fx:id="loginSignUpButton" layoutX="618.0" layoutY="21.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="168.0" style="-fx-background-color: #E07A5F;" text="регистрация" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI" size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <PasswordField fx:id="password_field" layoutX="289.0" layoutY="313.0" prefHeight="38.0" prefWidth="222.0" promptText="пароль">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="login_field" layoutX="289.0" layoutY="243.0" prefHeight="38.0" prefWidth="222.0" promptText="логин">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </TextField>
+      <Button fx:id="loginSignInButton" layoutX="316.0" layoutY="433.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="168.0" style="-fx-background-color: #E07A5F;" text="войти" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="21.0" />
+         </font>
+      </Button>
+      <Text fill="#f4f1de" layoutX="357.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Вход" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe WP Semibold" size="38.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
