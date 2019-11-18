@@ -9,8 +9,9 @@ public class DatabaseHandler extends Configs {
     Connection dbConnection;
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;//SET GLOBAL time_zone = '+3:00';
-     //   Class.forName("com.mysql.jdbc.Driver");
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
+                + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";//SET GLOBAL time_zone = '+3:00';
+
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
 
         return dbConnection;
