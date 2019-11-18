@@ -9,7 +9,7 @@ public class DatabaseHandler extends Configs {
     Connection dbConnection;
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;//SET GLOBAL time_zone = '+3:00';
      //   Class.forName("com.mysql.jdbc.Driver");
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
 
@@ -24,6 +24,7 @@ public class DatabaseHandler extends Configs {
         try {
             Statement statement = getDbConnection().createStatement();
             statement.executeUpdate(insert);
+            System.out.println("User registered successfully.");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
