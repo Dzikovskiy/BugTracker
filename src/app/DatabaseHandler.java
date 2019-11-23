@@ -2,10 +2,7 @@ package app;
 
 import app.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
@@ -37,5 +34,23 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getUser(User user) {
+        ResultSet resultSet = null;
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
+                + Const.USERS_LOGIN + "=? AND " + Const.USERS_PASSWORD + "=?";
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = getDbConnection().prepareStatement(select);
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
     }
 }

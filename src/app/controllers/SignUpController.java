@@ -1,8 +1,11 @@
 package app.controllers;
 
 import app.DatabaseHandler;
+import app.animations.Shake;
+import app.animations.Shaker;
 import app.model.User;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -50,9 +53,18 @@ public class SignUpController {
         String password = signUpPassword.getText();
         String email = signUpEmail.getText();
 
-        DatabaseHandler dbHandler = new DatabaseHandler();
+        if (!firstName.equals("") && !login.equals("") && !password.equals("") && !email.equals("")) {
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            User user = new User(firstName, login, password, email);
+            dbHandler.signUpUser(user);
 
-        User user = new User(firstName,login,password,email);
-        dbHandler.signUpUser(user);
+        } else {
+            System.out.println("Login error: empty fields ");
+            Shaker.shakeFields(signUpName,signUpLogin,signUpPassword,signUpEmail);
+        }
+
+
     }
+
+
 }

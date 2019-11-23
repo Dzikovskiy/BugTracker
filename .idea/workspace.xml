@@ -102,7 +102,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -220,7 +220,7 @@
       <workItem from="1574096382249" duration="323000" />
       <workItem from="1574412964036" duration="106000" />
       <workItem from="1574510408047" duration="160000" />
-      <workItem from="1574511374923" duration="2409000" />
+      <workItem from="1574511374923" duration="10658000" />
     </task>
     <servers />
   </component>
