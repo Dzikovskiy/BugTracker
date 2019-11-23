@@ -1,14 +1,14 @@
 package app.controllers;
 
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-
 import app.DatabaseHandler;
+import app.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SignUpController {
 
@@ -22,7 +22,7 @@ public class SignUpController {
     private PasswordField signUpPassword;
 
     @FXML
-    private TextField signUplogin;
+    private TextField signUpLogin;
 
     @FXML
     private Button signUpButton;
@@ -36,13 +36,23 @@ public class SignUpController {
     @FXML
     void initialize() {
 
-        DatabaseHandler dbHandler = new DatabaseHandler();
+
         signUpButton.setOnAction(event -> {
-
-                dbHandler.signUpUser(signUpName.getText(),signUplogin.getText(),signUpPassword.getText(),signUpEmail.getText());
-
+            signUpNewUser();
 
         });
 
+    }
+
+    private void signUpNewUser() {//TODO add fields checking , because working with null
+        String firstName = signUpName.getText();
+        String login = signUpLogin.getText();
+        String password = signUpPassword.getText();
+        String email = signUpEmail.getText();
+
+        DatabaseHandler dbHandler = new DatabaseHandler();
+
+        User user = new User(firstName,login,password,email);
+        dbHandler.signUpUser(user);
     }
 }
