@@ -1,0 +1,12 @@
+
+out/production/BugTracker/app/model/User.class
+out/production/BugTracker/app/Main.class
+out/production/BugTracker/app/DatabaseHandler.class
+out/production/BugTracker/app/controllers/SignUpController.class
+out/production/BugTracker/app/controllers/LoginController.class
+out/production/BugTracker/app/controllers/BoardController.class
+out/production/BugTracker/app/Const.class
+out/production/BugTracker/app/Configs.class
+out/production/BugTracker/app/animations/Shaker.class
+out/production/BugTracker/app/animations/Shake.class
+out/production/BugTracker/app/animations/Shake.class
