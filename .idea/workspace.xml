@@ -8,6 +8,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -68,6 +71,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1TIZV4bgrTuPVhi2FVCfUvHvwly" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -210,8 +216,8 @@
       <workItem from="1573392868761" duration="3143000" />
       <workItem from="1573723946710" duration="45000" />
       <workItem from="1574095580472" duration="582000" />
-      <workItem from="1574096382249" duration="412000" />
-      <workItem from="1574194267404" duration="8000" />
+      <workItem from="1574096382249" duration="323000" />
+      <workItem from="1574412964036" duration="106000" />
     </task>
     <servers />
   </component>
