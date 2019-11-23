@@ -25,7 +25,7 @@ public class DatabaseHandler extends Configs {
         try {
             Statement statement = getDbConnection().createStatement();
             statement.executeUpdate(insert);
-            System.out.println("User registered successfully.");
+            System.out.println("User registered successfully."); //hello from master
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
