@@ -57,6 +57,8 @@ public class SignUpController {
             DatabaseHandler dbHandler = new DatabaseHandler();
             User user = new User(firstName, login, password, email);
             dbHandler.signUpUser(user);
+            signUpButton.getScene().getWindow().hide();
+            SceneOpener.openNewScene("/app/view/login.fxml");
 
         } else {
             System.out.println("Login error: empty fields ");

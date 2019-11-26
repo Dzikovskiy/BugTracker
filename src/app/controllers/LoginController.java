@@ -54,7 +54,8 @@ public class LoginController {
         });
 
         loginSignUpButton.setOnAction(event -> {
-            openNewScene("/app/view/signUp.fxml");
+            loginSignUpButton.getScene().getWindow().hide();//hiding current window
+            SceneOpener.openNewScene("/app/view/signUp.fxml");
         });
 
     }
@@ -80,7 +81,8 @@ public class LoginController {
 
         if (counter >= 1) {
             System.out.println("User logged in");
-            openNewScene("/app/view/board.fxml");
+            loginSignUpButton.getScene().getWindow().hide();
+            SceneOpener.openNewScene("/app/view/board.fxml");
         } else {
             System.out.println("Login error: wrong login or password ");
             Shaker.shakeFields(login_field,password_field);
@@ -89,22 +91,7 @@ public class LoginController {
 
     }
 
-    public void openNewScene(String window) {
-        loginSignUpButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
-
-    }
 
 
 }
