@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BugTracker/app/controllers/BoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BugTracker/app/controllers/BoardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BugTracker/app/view/board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BugTracker/app/view/board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Configs.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/controllers/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/view/board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/view/board.fxml" afterDir="false" />
     </list>
@@ -92,21 +95,23 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHubDesktop/app-2.2.3/resources/app/git/cmd/git.exe" />
+    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.18.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="profiler.calltree.filter" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -226,9 +231,16 @@
       <workItem from="1574510408047" duration="160000" />
       <workItem from="1574511374923" duration="10658000" />
       <workItem from="1574527236380" duration="51000" />
+      <workItem from="1574673348338" duration="9000" />
+      <workItem from="1574771593003" duration="556000" />
       <workItem from="1574529968116" duration="17000" />
       <workItem from="1574538028410" duration="3053000" />
-      <workItem from="1574795551356" duration="3782000" />
+      <workItem from="1574772456359" duration="812000" />
+      <workItem from="1574803335378" duration="155000" />
+      <workItem from="1574856840331" duration="2918000" />
+      <workItem from="1574861927140" duration="435000" />
+      <workItem from="1574862384907" duration="233000" />
+      <workItem from="1574876570961" duration="2368000" />
     </task>
     <servers />
   </component>
