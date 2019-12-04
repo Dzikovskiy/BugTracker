@@ -39,7 +39,7 @@ public class DatabaseHandler extends Configs {
         }
     }
 
-    private ResultSet getUser(User user) {
+    public ResultSet getUser(User user) {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
                 + Const.USERS_LOGIN + "=? AND " + Const.USERS_PASSWORD + "=?";
