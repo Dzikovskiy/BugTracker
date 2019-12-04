@@ -11,10 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -25,9 +22,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class BoardController {
-
-    @FXML
-    private ScrollPane scrollPane;
 
     @FXML
     private ScrollPane scrollPane;
@@ -53,36 +47,30 @@ public class BoardController {
     @FXML
     void initialize() {
 
-        Rectangle rectangle = new Rectangle(30,40, Color.web("#ed4b00"));
-        for(int i = 0;i<10;i++) {
-            Group
-            scrollPane.setContent();
-            scrollPane.setContent(rectangle);
-        }
-
         List<Pane> list = new ArrayList<>();
-/*        list.add(recTask_1);
-        list.add(recTask_2);
-        list.add(recTask_3);
-        list.add(rec4);
-        list.add(rec5);
-        list.add(rec6);*/
+
         EventHandler<ActionEvent> handler = event -> {
-            System.out.println("Button pressed");
+
+            Button btn = (Button) event.getSource();
+            String id = btn.getId();
+
+            System.out.println("Button pressed: "+id);
+            System.out.println(((Control)event.getSource()).getId());
         };
 
         for (int i = 0; i < 10; i++) {
             final Rectangle rectangle = new Rectangle(200, 50);
             rectangle.setFill(Color.WHITE);
-            Button loginSignUpButton = new Button();
-            loginSignUpButton.setOnAction(handler);
-            final Text text = new Text(String.valueOf(i));
+            Button Button = new Button();
+            Button.setOnAction(handler);
+            Button.setId(String.valueOf(i)+"ToDo");
+            final Text text = new Text("Text from "+String.valueOf(i));
             final AnchorPane stackPane = new AnchorPane();
 
             AnchorPane.setTopAnchor(text, 20.0);
-            stackPane.setTopAnchor(loginSignUpButton, 20.0);
-            stackPane.setRightAnchor(loginSignUpButton, 15.0);
-            stackPane.getChildren().addAll(rectangle, text, loginSignUpButton);
+            stackPane.setTopAnchor(Button, 20.0);
+            stackPane.setRightAnchor(Button, 15.0);
+            stackPane.getChildren().addAll(rectangle, text, Button);
 
 
             list.add(stackPane);

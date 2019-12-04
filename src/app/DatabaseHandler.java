@@ -1,13 +1,16 @@
 package app;
 
+import app.animations.Shaker;
+import app.controllers.SceneOpener;
 import app.model.User;
 
+import java.net.Socket;
 import java.sql.*;
 
 public class DatabaseHandler extends Configs {
-    Connection dbConnection;
+    private Connection dbConnection;
 
-    public Connection getDbConnection() throws SQLException {
+    private Connection getDbConnection() throws SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
                 + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";//SET GLOBAL time_zone = '+3:00';
 
@@ -30,13 +33,13 @@ public class DatabaseHandler extends Configs {
 
             preparedStatement.executeUpdate();
 
-            System.out.println("User registered successfully."); //hello from master
+            System.out.println("User registered successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ResultSet getUser(User user) {
+    private ResultSet getUser(User user) {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
                 + Const.USERS_LOGIN + "=? AND " + Const.USERS_PASSWORD + "=?";
@@ -52,5 +55,34 @@ public class DatabaseHandler extends Configs {
         }
 
         return resultSet;
+    }
+
+    public boolean loginUser(String loginText, String passwordText) {
+
+        User user = new User();
+        user.setLogin(loginText);
+        user.setPassword(passwordText);
+
+        ResultSet resultSet = getUser(user);
+
+        int counter = 0;
+
+        try {
+            while (resultSet.next()) {
+                counter++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (counter >= 1) {
+            System.out.println("User logged in");
+            return true;
+        } else {
+            System.out.println("Login error: wrong login or password ");
+            return false;
+
+        }
+
     }
 }
