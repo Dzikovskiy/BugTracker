@@ -1,19 +1,15 @@
 package app.controllers;
 
+import app.ClientSocket;
 import app.DatabaseHandler;
-import app.animations.Shake;
 import app.animations.Shaker;
 import app.model.User;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,9 +19,6 @@ public class LoginController {
 
     @FXML
     private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button loginSignUpButton;
@@ -41,6 +34,7 @@ public class LoginController {
 
     @FXML
     void initialize() {
+
 
         loginSignInButton.setOnAction(event -> {
             String loginText = login_field.getText().trim();
@@ -61,7 +55,8 @@ public class LoginController {
     }
 
     private void loginUser(String loginText, String passwordText) {
-
+        Socket socket = ClientSocket.getSocket();
+//connection to server here
         DatabaseHandler handler = new DatabaseHandler();
         User user = new User();
         user.setLogin(loginText);
