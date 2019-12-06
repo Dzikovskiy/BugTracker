@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.Commands;
 import app.DatabaseHandler;
 import app.animations.Shake;
 import app.animations.Shaker;
@@ -54,15 +55,14 @@ public class SignUpController {
         String email = signUpEmail.getText();
 
         if (!firstName.equals("") && !login.equals("") && !password.equals("") && !email.equals("")) {
-            DatabaseHandler dbHandler = new DatabaseHandler();
-            User user = new User(firstName, login, password, email);
-            dbHandler.signUpUser(user);
+            ServerAgent.sendDataToServer(Commands.SIGN_UP);
+            ServerAgent.sendDataToServer(firstName + " " + login + " " + password + " " + email);
+
             signUpButton.getScene().getWindow().hide();
             SceneOpener.openNewScene("/app/view/login.fxml");
-
         } else {
             System.out.println("Login error: empty fields ");
-            Shaker.shakeFields(signUpName,signUpLogin,signUpPassword,signUpEmail);
+            Shaker.shakeFields(signUpName, signUpLogin, signUpPassword, signUpEmail);
         }
 
 

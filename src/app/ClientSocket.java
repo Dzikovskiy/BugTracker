@@ -9,7 +9,7 @@ public class ClientSocket {
     private static void initSocket() {
         try {
             socket = new Socket("127.0.0.1", 1024);
-            System.out.println("Connected");
+            System.out.println("Connected to server.");
         } catch (IOException e) {
             e.printStackTrace();
         }

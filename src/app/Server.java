@@ -1,5 +1,6 @@
 package app;
 
+import app.controllers.QueryHandler;
 import app.model.User;
 
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Server {
 
@@ -21,20 +23,13 @@ public class Server {
 
     }
 
-    private static String getQuery(InputStream inputStream) throws IOException {
-        byte[] clientMessage = new byte[100];
-        int messageLength = inputStream.read(clientMessage);
-        String queryContent = new String(clientMessage, 0, messageLength);
-        queryContent = queryContent.trim();   // TODO check if func .trim() ok
-        return queryContent;
-    }
 
     private void start() {
         System.out.println("Server started.");
         while (true) {
             try {
                 Socket client = socket.accept();
-
+                System.out.println("Client connected");
                 Runnable runnable = () -> {
 
                     OutputStream outputStream;
@@ -43,28 +38,25 @@ public class Server {
                         outputStream = client.getOutputStream();
                         inputStream = client.getInputStream();
 
-                        String clientAction;
-                        String queryContent;
-                        boolean exitFlag = true;// become true after Action.END
+                        String clientCommand;
+                        boolean exitFlag = true;// become true after .END
 
                         while (exitFlag) {
-                            clientAction = getQuery(inputStream);
+                            clientCommand = QueryHandler.getQuery(inputStream);
 
-                            if (clientAction.equalsIgnoreCase(Actions.END)) {
+                            if (clientCommand.equalsIgnoreCase(Commands.END)) {
                                 exitFlag = false;
-                            } else if (clientAction.equalsIgnoreCase(Actions.SIGN_UP)) {
-                                signUpUser(getQuery(inputStream));
-                            } else if (clientAction.equalsIgnoreCase(Actions.LOGIN)) {
-                                loginUser(outputStream, getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.SIGN_UP)) {
+                                signUpUser(QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.LOGIN)) {
+                                loginUser(outputStream, QueryHandler.getQuery(inputStream));
                             }
-
 
                         }
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 };
 
 
@@ -77,6 +69,8 @@ public class Server {
         }
 
     }
+
+
 
     private void loginUser(OutputStream outputStream, String queryContent) throws IOException {
         String[] arr = queryContent.split(" ");
