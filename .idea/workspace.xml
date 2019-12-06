@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/Actions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/ClientSocket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BugTracker/app/Configs.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BugTracker/app/Configs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BugTracker/app/controllers/BoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BugTracker/app/controllers/BoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Configs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Configs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/controllers/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/controllers/LoginController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,6 +248,8 @@
       <workItem from="1575368618789" duration="2434000" />
       <workItem from="1575399618234" duration="773000" />
       <workItem from="1575473407189" duration="1467000" />
+      <workItem from="1575542952011" duration="1516000" />
+      <workItem from="1575550484137" duration="509000" />
     </task>
     <servers />
   </component>
@@ -299,10 +290,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1557" height="268" key="GridCell.Tab.0.right/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1575121360691" />
-    <state x="495" y="252" key="com.intellij.ide.util.TipDialog" timestamp="1575473406863">
+    <state x="495" y="252" key="com.intellij.ide.util.TipDialog" timestamp="1575550484131">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="495" y="252" key="com.intellij.ide.util.TipDialog/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1575473406863" />
+    <state x="495" y="252" key="com.intellij.ide.util.TipDialog/0.0.1600.860/-1920.0.1920.1040@0.0.1600.860" timestamp="1575550484131" />
     <state x="530" y="195" key="extract.method.dialog" timestamp="1575144062570">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
