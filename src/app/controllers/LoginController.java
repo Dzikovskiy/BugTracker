@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.ClientSocket;
+import app.Commands;
 import app.DatabaseHandler;
 import app.animations.Shaker;
 import app.model.User;
@@ -43,7 +44,7 @@ public class LoginController {
                 loginUser(loginText, passwordText);
             } else {
                 System.out.println("Login error: empty fields ");
-                Shaker.shakeFields(login_field,password_field);
+                Shaker.shakeFields(login_field, password_field);
             }
         });
 
@@ -55,38 +56,26 @@ public class LoginController {
     }
 
     private void loginUser(String loginText, String passwordText) {
-        Socket socket = ClientSocket.getSocket();
-//connection to server here
-        DatabaseHandler handler = new DatabaseHandler();
-        User user = new User();
-        user.setLogin(loginText);
-        user.setPassword(passwordText);
 
-        ResultSet resultSet = handler.getUser(user);
 
-        int counter = 0;
+        ServerAgent.sendDataToServer(Commands.LOGIN);
+        ServerAgent.sendDataToServer(loginText + " " + passwordText);
 
-        try {
-            while (resultSet.next()) {
-                counter++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        String[] data = ServerAgent.getDataFromServer().split(" ");
 
-        if (counter >= 1) {
+        if (data[0].equalsIgnoreCase("logged")) {
             System.out.println("User logged in");
             loginSignUpButton.getScene().getWindow().hide();
             SceneOpener.openNewScene("/app/view/board.fxml");
-        } else {
+        } else if (data[0].equalsIgnoreCase("error")) {
             System.out.println("Login error: wrong login or password ");
-            Shaker.shakeFields(login_field,password_field);
-
+            Shaker.shakeFields(login_field, password_field);
+        } else {
+            System.out.println("Login error: wrong data from server ");
+            Shaker.shakeFields(login_field, password_field);
         }
 
     }
-
-
 
 
 }

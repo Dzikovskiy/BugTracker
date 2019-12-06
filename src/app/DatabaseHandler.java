@@ -2,6 +2,7 @@ package app;
 
 import app.animations.Shaker;
 import app.controllers.SceneOpener;
+import app.model.Task;
 import app.model.User;
 
 import java.net.Socket;
@@ -19,24 +20,36 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
-    public void signUpUser(User user) {
+    public void insetTask(Task task) {
 
-        String insert = "INSERT INTO " + Const.USER_TABLE + " (" + Const.USERS_FIRSTNAME + "," + Const.USERS_LOGIN
-                + "," + Const.USERS_PASSWORD + "," + Const.USERS_EMAIL + ")"
-                + "VALUES (?,?,?,?)";
+        String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR
+                + "," + Const.TASKS_COLUMN + ")"
+                + "VALUES (?,?,?)";
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(1, task.getTask());
+            preparedStatement.setString(2, task.getCreator());
+            preparedStatement.setString(3, String.valueOf(task.getColumn()));
 
             preparedStatement.executeUpdate();
 
-            System.out.println("User registered successfully.");
+            System.out.println("Task added successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getTasks() {
+        ResultSet resultSet = null;
+        String select = "SELECT * FROM " + Const.TASK_TABLE;
+
+        try {
+            Statement statement = getDbConnection().createStatement();
+            resultSet = statement.executeQuery(select);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 
     public ResultSet getUser(User user) {
@@ -84,5 +97,25 @@ public class DatabaseHandler extends Configs {
 
         }
 
+    }
+
+    public void signUpUser(User user) {
+
+        String insert = "INSERT INTO " + Const.USER_TABLE + " (" + Const.USERS_FIRSTNAME + "," + Const.USERS_LOGIN
+                + "," + Const.USERS_PASSWORD + "," + Const.USERS_EMAIL + ")"
+                + "VALUES (?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLogin());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getEmail());
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("User registered successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

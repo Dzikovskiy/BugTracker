@@ -7,7 +7,6 @@ public class User {
     private String email;
     // boolean admin;
 
-
     public User(String firstName, String login, String password, String email) {
         this.firstName = firstName;
         this.login = login;

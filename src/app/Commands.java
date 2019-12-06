@@ -1,6 +1,6 @@
 package app;
 
-public class Actions {
+public class Commands {
     public static final String LOGIN = "LOGIN";
     public static final String SIGN_UP = "SIGN_UP";
     public static final String GET_TASKS = "GET_TASKS";

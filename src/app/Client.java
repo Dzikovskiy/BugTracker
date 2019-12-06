@@ -10,9 +10,9 @@ import java.net.Socket;
 
 public class Client extends Application {
 
-    public Socket socket;
     @Override
     public void start(Stage primaryStage) throws Exception{
+        ClientSocket.getSocket();
         Parent root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
         primaryStage.setTitle("BugTracker");
         primaryStage.setScene(new Scene(root, 800, 550));
