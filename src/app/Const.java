@@ -13,5 +13,5 @@ public class Const {
     public static final String TASKS_ID = "id";
     public static final String TASKS_TASK = "task";
     public static final String TASKS_CREATOR = "creator";
-    public static final String TASKS_COLUMN = "column";
+    public static final String TASKS_STAGE = "stage";
 }

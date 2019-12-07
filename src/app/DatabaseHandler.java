@@ -20,23 +20,27 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
-    public void insetTask(Task task) {
+    public boolean saveTask(String task,String creator, String column) {
 
         String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR
-                + "," + Const.TASKS_COLUMN + ")"
-                + "VALUES (?,?,?)";
+                + "," + Const.TASKS_STAGE + ")"
+                + " VALUES (?,?,?)";
+        boolean b = false;
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-            preparedStatement.setString(1, task.getTask());
-            preparedStatement.setString(2, task.getCreator());
-            preparedStatement.setString(3, String.valueOf(task.getColumn()));
+            preparedStatement.setString(1, task);
+            preparedStatement.setString(2, creator);
+            preparedStatement.setString(3, column);
 
             preparedStatement.executeUpdate();
 
             System.out.println("Task added successfully.");
+            b = true;
         } catch (SQLException e) {
             e.printStackTrace();
+            b = false;
         }
+        return b;
     }
 
     public ResultSet getTasks() {

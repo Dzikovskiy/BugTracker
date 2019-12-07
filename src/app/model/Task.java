@@ -4,7 +4,7 @@ public class Task {
     private String id;
     private String task;
     private String creator;
-    private int column;
+    private String column;
 
     public String getId() {
         return id;
@@ -30,11 +30,11 @@ public class Task {
         this.creator = creator;
     }
 
-    public int getColumn() {
+    public String getColumn() {
         return column;
     }
 
-    public void setColumn(int column) {
+    public void setColumn(String column) {
         this.column = column;
     }
 }

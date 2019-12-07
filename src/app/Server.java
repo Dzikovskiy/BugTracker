@@ -1,6 +1,7 @@
 package app;
 
 import app.controllers.QueryHandler;
+import app.model.Task;
 import app.model.User;
 
 import java.io.IOException;
@@ -50,6 +51,8 @@ public class Server {
                                 signUpUser(QueryHandler.getQuery(inputStream));
                             } else if (clientCommand.equalsIgnoreCase(Commands.LOGIN)) {
                                 loginUser(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if(clientCommand.equalsIgnoreCase(Commands.SAVE_TASK)){
+                                saveTask(outputStream,QueryHandler.getQuery(inputStream));
                             }
 
                         }
@@ -70,6 +73,19 @@ public class Server {
 
     }
 
+    private void saveTask(OutputStream outputStream, String query) throws IOException {
+        String[] dataBuff = query.split(",");
+        String[] data = dataBuff[1].split(" ");
+        String taskData = dataBuff[0];
+        String creator = data[0];
+        String column = data[1];
+
+        if (handler.saveTask(taskData,creator,column)){
+            outputStream.write("saved".getBytes());
+        }else {
+            outputStream.write("error".getBytes());
+        }
+    }
 
 
     private void loginUser(OutputStream outputStream, String queryContent) throws IOException {
