@@ -1,5 +1,6 @@
 package app;
 
+import app.model.Task;
 import app.model.User;
 
 import java.sql.*;
@@ -16,17 +17,38 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
-    public boolean saveTask(String task, String creator, String column) {
+    /*  public boolean saveTask(String task, String creator, String column) {
 
-        String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR
-                + "," + Const.TASKS_STAGE + ")"
-                + " VALUES (?,?,?)";
+          String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR
+                  + "," + Const.TASKS_STAGE + ")"
+                  + " VALUES (?,?,?)";
+          boolean b = false;
+          try {
+              PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+              preparedStatement.setString(1, task);
+              preparedStatement.setString(2, creator);
+              preparedStatement.setString(3, column);
+
+              preparedStatement.executeUpdate();
+
+              System.out.println("Task added successfully.");
+              b = true;
+          } catch (SQLException e) {
+              e.printStackTrace();
+              b = false;
+          }
+          return b;
+      }
+  */
+    public boolean saveTask(String task, String creator) {
+
+        String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR + ")"
+                + " VALUES (?,?)";
         boolean b = false;
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
             preparedStatement.setString(1, task);
             preparedStatement.setString(2, creator);
-            preparedStatement.setString(3, column);
 
             preparedStatement.executeUpdate();
 
@@ -39,10 +61,28 @@ public class DatabaseHandler extends Configs {
         return b;
     }
 
+    public boolean editTask(Task task){
+
+        String insert = "UPDATE " + Const.TASK_TABLE + " SET " + Const.TASKS_STAGE + "=?" + " WHERE "+"("+Const.TASKS_ID +"=?" +")";
+        boolean b = false;
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.setString(1, String.valueOf(Integer.parseInt(task.getStage()+1)));
+            preparedStatement.setString(2, task.getId());
+
+            preparedStatement.executeUpdate();
+            System.out.println("Task edited successfully.");
+            b = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            b = false;
+        }
+        return b;
+    }
+
     public boolean getTasks(StringBuilder dataString) {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + Const.TASK_TABLE;
-
 
         try {
             Statement statement = getDbConnection().createStatement();

@@ -1,6 +1,7 @@
 package app;
 
 import app.controllers.QueryHandler;
+import app.model.Task;
 import app.model.User;
 
 import java.io.IOException;
@@ -53,7 +54,10 @@ public class Server {
                                 saveTask(outputStream, QueryHandler.getQuery(inputStream));
                             } else if (clientCommand.equalsIgnoreCase(Commands.GET_TASKS)) {
                                 sendTasks(outputStream);
+                            }else if(clientCommand.equalsIgnoreCase(Commands.EDIT_TASK)){
+                                editTask(outputStream,QueryHandler.getQuery(inputStream));
                             }
+
 
                         }
 
@@ -73,13 +77,28 @@ public class Server {
 
     }
 
+    private void editTask(OutputStream outputStream, String query) throws IOException {
+
+        String[] data = query.split(" ");
+        Task task = new Task();
+        task.setId(data[0]);
+        task.setStage(data[1]);
+        if (handler.editTask(task)) {
+            outputStream.write("edited".getBytes());
+            System.out.println("Tasks edited");
+        } else {
+            outputStream.write("error".getBytes());
+        }
+
+    }
+
     private void sendTasks(OutputStream outputStream) throws IOException {
         // String dataString = "";
         StringBuilder builderString = new StringBuilder(1024);
         if (handler.getTasks(builderString)) {
             outputStream.write("tasks".getBytes());
             outputStream.write(builderString.toString().getBytes());
-            System.out.println("Tasks sent to server");
+            System.out.println("Tasks sent from server");
         } else {
             outputStream.write("error".getBytes());
         }
@@ -90,9 +109,8 @@ public class Server {
         String[] data = dataCommaSplitted[1].split(" ");
         String taskData = dataCommaSplitted[0];
         String creator = data[0];
-        String column = data[1];
 
-        if (handler.saveTask(taskData, creator, column)) {
+        if (handler.saveTask(taskData, creator)) {
             outputStream.write("saved".getBytes());
         } else {
             outputStream.write("error".getBytes());

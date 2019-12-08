@@ -36,7 +36,6 @@ public class LoginController {
     @FXML
     void initialize() {
 
-
         loginSignInButton.setOnAction(event -> {
             String loginText = login_field.getText().trim();
             String passwordText = password_field.getText().trim();
@@ -74,9 +73,6 @@ public class LoginController {
             System.out.println("Login error: wrong data from server ");
             Shaker.shakeFields(login_field, password_field);
         }
-
     }
-
-
 }
 
