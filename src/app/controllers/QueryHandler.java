@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 public class QueryHandler {
     public static String getQuery(InputStream inputStream) throws IOException {
-        byte[] message = new byte[100];
+        byte[] message = new byte[1024];
         try {
              inputStream.read(message);
         }catch (SocketException e){}

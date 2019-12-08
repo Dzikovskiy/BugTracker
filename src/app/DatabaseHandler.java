@@ -1,11 +1,7 @@
 package app;
 
-import app.animations.Shaker;
-import app.controllers.SceneOpener;
-import app.model.Task;
 import app.model.User;
 
-import java.net.Socket;
 import java.sql.*;
 
 public class DatabaseHandler extends Configs {
@@ -20,7 +16,7 @@ public class DatabaseHandler extends Configs {
         return dbConnection;
     }
 
-    public boolean saveTask(String task,String creator, String column) {
+    public boolean saveTask(String task, String creator, String column) {
 
         String insert = "INSERT INTO " + Const.TASK_TABLE + " (" + Const.TASKS_TASK + "," + Const.TASKS_CREATOR
                 + "," + Const.TASKS_STAGE + ")"
@@ -43,9 +39,10 @@ public class DatabaseHandler extends Configs {
         return b;
     }
 
-    public ResultSet getTasks() {
+    public boolean getTasks(StringBuilder dataString) {
         ResultSet resultSet = null;
         String select = "SELECT * FROM " + Const.TASK_TABLE;
+
 
         try {
             Statement statement = getDbConnection().createStatement();
@@ -53,7 +50,30 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resultSet;
+
+        int counter = 0;
+        try {
+            while (resultSet.next()) {
+                dataString.append(resultSet.getString(Const.TASKS_TASK)).append("+");
+                dataString.append(resultSet.getString(Const.TASKS_ID)).append(" ");
+                dataString.append(resultSet.getString(Const.TASKS_CREATOR)).append(" ");
+                dataString.append(resultSet.getString(Const.TASKS_STAGE)).append(",");
+                counter++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (counter >= 1) {
+            System.out.println("Tasks loaded from database");
+            return true;
+        } else {
+            System.out.println("No tasks in database ");
+            return false;
+
+        }
+
+
     }
 
     public ResultSet getUser(User user) {

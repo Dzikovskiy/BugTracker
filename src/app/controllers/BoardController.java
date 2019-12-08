@@ -2,6 +2,7 @@ package app.controllers;
 
 
 import app.Commands;
+import app.model.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,53 +19,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardController {
-
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private ScrollPane scrollPane_2;
-
     @FXML
     private ScrollPane scrollPane_3;
-
     @FXML
     private Rectangle recTask_2;
-
     @FXML
     private Rectangle recTask_1;
-
     @FXML
     private Rectangle recTask_3;
-
     @FXML
     private Rectangle rec4;
-
     @FXML
     private Rectangle rec5;
-
     @FXML
     private Rectangle rec6;
+
+    ArrayList<Task> tasksArray = new ArrayList<>();
 
     @FXML
     void initialize() {
 
         List<Pane> list = new ArrayList<>();
+        getTasks(tasksArray);
 
         EventHandler<ActionEvent> handler = event -> {
 
             //Button btn = (Button) event.getSource();
-            //String id = btn.getId();
+            //String id = btn.getId();//bt = pane = text = array = id
 
             // System.out.println("Button pressed: "+id);
             //System.out.println(((Control)event.getSource()).getId());
             String task = "thistaskv ver yimp ort and";
             String creator = "jonny";
             String column = "2";
-            saveTask(task + ",", creator, column);// separating text with comma ","
+            saveTask(task , creator, column);// separating text with comma ","
         };
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < tasksArray.size(); i++) {
             final AnchorPane stackPane = new AnchorPane();
             Rectangle rectangle = new Rectangle(220, 100);
             rectangle.setFill(Color.WHITE);
@@ -81,7 +76,7 @@ public class BoardController {
             Button.setId(String.valueOf(i));
             Button.setText(">");
 
-            Text text = new Text("Text from d dfg j j j j jj j j jj j j jj j j jj j j j j j jffffffffffffffffff ffffffff fffff fffffffff fffffffffffffffffff " + String.valueOf(i));
+            Text text = new Text(tasksArray.get(i).getTask());
 
             text.setWrappingWidth(180);
             AnchorPane.setTopAnchor(text, 20.0);
@@ -93,7 +88,6 @@ public class BoardController {
             list.add(stackPane);
         }
 
-        Pane pane = new Pane();
         VBox box = new VBox();
         box.setSpacing(15);
         box.getChildren().addAll(list);
@@ -105,7 +99,7 @@ public class BoardController {
 
     private void saveTask(String task, String creator, String column) {
         ServerAgent.sendDataToServer(Commands.SAVE_TASK);
-        ServerAgent.sendDataToServer(task + " " + creator + " " + column);
+        ServerAgent.sendDataToServer(task + "," + creator + " " + column);
 
         String[] data = ServerAgent.getDataFromServer().split(" ");
 
@@ -120,4 +114,35 @@ public class BoardController {
 
         }
     }
+    private void getTasks(ArrayList tasksArr){
+
+        // sending command to server
+        ServerAgent.sendDataToServer(Commands.GET_TASKS);
+        // receiving data from server
+        // and splitting lines with comma
+        String[] result = ServerAgent.getDataFromServer().split(" ");
+        if(result[0].equalsIgnoreCase("tasks")) {
+            System.out.println("Tasks received from server");
+            String[] dataCommaSplitted = ServerAgent.getDataFromServer().split(",");
+            String[] data;
+            for (int i = 0; i < dataCommaSplitted.length; i++) {//saving data to Tasks array
+                Task task = new Task();
+                data = dataCommaSplitted[i].split("\\+");
+                String[] otherData = data[1].split(" ");
+               // data = dataCommaSplitted[i].split(" ");
+
+                task.setTask(data[0]);
+                task.setId(otherData[0]);
+
+                task.setCreator(otherData[1]);
+                task.setStage(otherData[2]);
+                tasksArr.add(task);
+
+            }//задача состоит из нескольих слов - по этому не правильно загружает так как я не поделил на части
+        }else if(result[0].equalsIgnoreCase("error")){
+
+        }
+
+    };
+
 }

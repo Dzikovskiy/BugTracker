@@ -1,7 +1,6 @@
 package app;
 
 import app.controllers.QueryHandler;
-import app.model.Task;
 import app.model.User;
 
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class Server {
 
@@ -51,8 +49,10 @@ public class Server {
                                 signUpUser(QueryHandler.getQuery(inputStream));
                             } else if (clientCommand.equalsIgnoreCase(Commands.LOGIN)) {
                                 loginUser(outputStream, QueryHandler.getQuery(inputStream));
-                            } else if(clientCommand.equalsIgnoreCase(Commands.SAVE_TASK)){
-                                saveTask(outputStream,QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.SAVE_TASK)) {
+                                saveTask(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.GET_TASKS)) {
+                                sendTasks(outputStream);
                             }
 
                         }
@@ -73,16 +73,28 @@ public class Server {
 
     }
 
+    private void sendTasks(OutputStream outputStream) throws IOException {
+        // String dataString = "";
+        StringBuilder builderString = new StringBuilder(1024);
+        if (handler.getTasks(builderString)) {
+            outputStream.write("tasks".getBytes());
+            outputStream.write(builderString.toString().getBytes());
+            System.out.println("Tasks sent to server");
+        } else {
+            outputStream.write("error".getBytes());
+        }
+    }
+
     private void saveTask(OutputStream outputStream, String query) throws IOException {
-        String[] dataBuff = query.split(",");
-        String[] data = dataBuff[1].split(" ");
-        String taskData = dataBuff[0];
+        String[] dataCommaSplitted = query.split(",");
+        String[] data = dataCommaSplitted[1].split(" ");
+        String taskData = dataCommaSplitted[0];
         String creator = data[0];
         String column = data[1];
 
-        if (handler.saveTask(taskData,creator,column)){
+        if (handler.saveTask(taskData, creator, column)) {
             outputStream.write("saved".getBytes());
-        }else {
+        } else {
             outputStream.write("error".getBytes());
         }
     }
