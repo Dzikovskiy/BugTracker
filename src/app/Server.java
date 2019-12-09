@@ -54,8 +54,8 @@ public class Server {
                                 saveTask(outputStream, QueryHandler.getQuery(inputStream));
                             } else if (clientCommand.equalsIgnoreCase(Commands.GET_TASKS)) {
                                 sendTasks(outputStream);
-                            }else if(clientCommand.equalsIgnoreCase(Commands.EDIT_TASK)){
-                                editTask(outputStream,QueryHandler.getQuery(inputStream));
+                            }else if(clientCommand.equalsIgnoreCase(Commands.MOVE_TASK)){
+                                moveTask(outputStream,QueryHandler.getQuery(inputStream));
                             }
 
 
@@ -77,13 +77,13 @@ public class Server {
 
     }
 
-    private void editTask(OutputStream outputStream, String query) throws IOException {
+    private void moveTask(OutputStream outputStream, String query) throws IOException {
 
         String[] data = query.split(" ");
         Task task = new Task();
         task.setId(data[0]);
         task.setStage(data[1]);
-        if (handler.editTask(task)) {
+        if (handler.moveTask(task)) {
             outputStream.write("edited".getBytes());
             System.out.println("Tasks edited");
         } else {

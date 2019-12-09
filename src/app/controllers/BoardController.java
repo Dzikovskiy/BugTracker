@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -41,6 +42,29 @@ public class BoardController {
     private VBox box_1 = new VBox();
     private VBox box_2 = new VBox();
     private VBox box_3 = new VBox();
+    private EventHandler<ActionEvent> moveTaskHandler = event -> {
+        String stage = "";
+        String id = "";
+        for (Task array : tasksArray) {
+            if (array.getId().equalsIgnoreCase(((Control) event.getSource()).getId())) {
+                stage = array.getStage();
+                id = array.getId();
+                break;
+            }
+
+        }
+        ServerAgent.sendDataToServer(Commands.MOVE_TASK);
+        ServerAgent.sendDataToServer(id+" "+stage);
+        String[] result = ServerAgent.getDataFromServer().split(" ");
+
+        if(result[0].equalsIgnoreCase("edited")){
+            System.out.println("Task stage changed");
+        }else if(result[0].equalsIgnoreCase("erroe")){
+            System.out.println("Error while moving");
+        }else{
+            System.out.println("Error: wrong data from server");
+        }
+    };
 
     @FXML
     void initialize() {
@@ -115,8 +139,6 @@ public class BoardController {
 
     }
 
-    ;
-
     private void loadTasks() {
 
         getTasks(tasksArray);
@@ -133,22 +155,30 @@ public class BoardController {
             AnchorPane.setLeftAnchor(rectangle, 15.0);
 
             Button Button = new Button();
-            Button.setOnAction(saveTaskHandler);
+            Button.setOnAction(moveTaskHandler);
 
             Button.setId(tasksArray.get(i).getId());
             Button.setText(">");
 
-            Text text = new Text(tasksArray.get(i).getTask());
-            text.setFont(Font.font("Segoe WP Light", 14));
-            text.setCache(false);
-            text.setFontSmoothingType(FontSmoothingType.LCD);
+            Text creatorText = new Text(tasksArray.get(i).getCreator());
+            creatorText.setFont(Font.font("Segoe WP Bold", 15));
+            creatorText.setCache(false);
+            //creatorText.setFontSmoothingType(FontSmoothingType.LCD);
 
-            text.setWrappingWidth(180);
-            AnchorPane.setTopAnchor(text, 20.0);
-            AnchorPane.setLeftAnchor(text, 20.0);
+            Text taskText = new Text(tasksArray.get(i).getTask());
+            taskText.setFont(Font.font("Segoe WP Light", 13));
+            taskText.setCache(false);
+           // taskText.setFontSmoothingType(FontSmoothingType.LCD);
+
+            creatorText.setWrappingWidth(170);
+            taskText.setWrappingWidth(180);
+            AnchorPane.setTopAnchor(taskText, 20.0);
+            AnchorPane.setLeftAnchor(taskText, 20.0);
+            AnchorPane.setTopAnchor(creatorText, 85.0);
+            AnchorPane.setLeftAnchor(creatorText, 30.0);
             AnchorPane.setTopAnchor(Button, 80.0);
             AnchorPane.setRightAnchor(Button, 10.0);
-            anchorPane.getChildren().addAll(rectangle, text, Button);
+            anchorPane.getChildren().addAll(rectangle, taskText, Button,creatorText);
             anchorPane.setCache(false);
 
             if (tasksArray.get(i).getStage().equalsIgnoreCase("1")) {
@@ -183,19 +213,6 @@ public class BoardController {
 
 
     }
-
-    private EventHandler<ActionEvent> saveTaskHandler = event -> {
-
-        //Button btn = (Button) event.getSource();
-        //String id = btn.getId();//bt = pane = text = array = id
-
-        // System.out.println("Button pressed: "+id);
-        //System.out.println(((Control)event.getSource()).getId());
-        String task = "thistaskv ver yimp ort and";
-        String creator = "jonny";
-        String column = "2";
-        saveTask(task, creator, column);// separating text with comma ","
-    };
 
 
 }

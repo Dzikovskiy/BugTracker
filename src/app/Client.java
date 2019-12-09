@@ -16,6 +16,7 @@ public class Client extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
         primaryStage.setTitle("BugTracker");
         primaryStage.setScene(new Scene(root, 800, 550));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

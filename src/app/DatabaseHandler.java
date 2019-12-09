@@ -61,13 +61,13 @@ public class DatabaseHandler extends Configs {
         return b;
     }
 
-    public boolean editTask(Task task){
+    public boolean moveTask(Task task) {
 
-        String insert = "UPDATE " + Const.TASK_TABLE + " SET " + Const.TASKS_STAGE + "=?" + " WHERE "+"("+Const.TASKS_ID +"=?" +")";
+        String insert = "UPDATE " + Const.TASK_TABLE + " SET " + Const.TASKS_STAGE + "=?" + " WHERE " + "(" + Const.TASKS_ID + "=?" + ")";
         boolean b = false;
         try {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
-            preparedStatement.setString(1, String.valueOf(Integer.parseInt(task.getStage()+1)));
+            preparedStatement.setString(1, String.valueOf(Integer.parseInt(task.getStage()) + 1));
             preparedStatement.setString(2, task.getId());
 
             preparedStatement.executeUpdate();

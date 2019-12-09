@@ -4,12 +4,12 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="840.0" style="-fx-background-color: #F4F1DE;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.BoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="840.0" style="-fx-background-color: #23374D;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.BoardController">
    <children>
-      <AnchorPane prefHeight="102.0" prefWidth="840.0" style="-fx-background-color: #63C7B2;">
+      <AnchorPane prefHeight="102.0" prefWidth="840.0" style="-fx-background-color: #23374D;">
          <children>
-            <Button fx:id="addTaskButton" layoutX="14.0" layoutY="33.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="193.0" text="Добавить задачу" />
-            <Button fx:id="updateButton" layoutX="216.0" layoutY="33.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="70.0" text="Обновить" />
+            <Button fx:id="addTaskButton" layoutX="14.0" layoutY="33.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="166.0" text="Добавить задачу" />
+            <Button fx:id="updateButton" layoutX="191.0" layoutY="33.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="89.0" text="Обновить" />
          </children></AnchorPane>
       <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="109.0" prefHeight="437.0" prefWidth="266.0" styleClass="edge-to-edge" />
       <ScrollPane fx:id="scrollPane_3" layoutX="558.0" layoutY="109.0" prefHeight="437.0" prefWidth="266.0" styleClass="edge-to-edge" />
