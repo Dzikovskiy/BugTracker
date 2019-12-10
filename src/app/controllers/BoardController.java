@@ -3,6 +3,7 @@ package app.controllers;
 
 import app.Commands;
 import app.model.Task;
+import app.model.TaskBuffer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,16 +55,46 @@ public class BoardController {
 
         }
         ServerAgent.sendDataToServer(Commands.MOVE_TASK);
-        ServerAgent.sendDataToServer(id+" "+stage);
+        ServerAgent.sendDataToServer(id + " " + stage);
         String[] result = ServerAgent.getDataFromServer().split(" ");
 
-        if(result[0].equalsIgnoreCase("edited")){
+        if (result[0].equalsIgnoreCase("edited")) {
+            updateTasks();
             System.out.println("Task stage changed");
-        }else if(result[0].equalsIgnoreCase("erroe")){
+        } else if (result[0].equalsIgnoreCase("erroe")) {
             System.out.println("Error while moving");
-        }else{
+        } else {
             System.out.println("Error: wrong data from server");
         }
+    };
+
+    private EventHandler<ActionEvent> deleteTaskHandler = event -> {
+        String id = ((Control) event.getSource()).getId();
+
+        ServerAgent.sendDataToServer(Commands.DELETE_TASK);
+        ServerAgent.sendDataToServer(id);
+        String[] result = ServerAgent.getDataFromServer().split(" ");
+
+        if (result[0].equalsIgnoreCase("deleted")) {
+            System.out.println("Task deleted");
+            updateTasks();
+        } else if (result[0].equalsIgnoreCase("error")) {
+            System.out.println("Error while deleting");
+        } else {
+            System.out.println("Error: wrong data from server");
+        }
+    };
+    private EventHandler<ActionEvent> editTaskHandler = event -> {
+        for (Task array : tasksArray) {
+            if (array.getId().equalsIgnoreCase(((Control) event.getSource()).getId())) {
+                TaskBuffer.setTask(array.getTask());
+                TaskBuffer.setCreator(array.getCreator());
+                TaskBuffer.setId(array.getId());
+                break;
+            }
+
+        }
+        SceneOpener.openNewScene("/app/view/edit.fxml");
     };
 
     @FXML
@@ -72,21 +103,27 @@ public class BoardController {
         loadTasks();
         addTaskButton.setOnAction(event -> {
             SceneOpener.openNewScene("/app/view/task.fxml");
+            updateTasks();
 
         });
         updateButton.setOnAction(event -> {
-            tasksArray.clear();
-            firstList.clear();
-            secondList.clear();
-            thirdList.clear();
-            scrollPane.setContent(null);
-            scrollPane_2.setContent(null);
-            scrollPane_3.setContent(null);
-            box_1.getChildren().clear();
-            box_2.getChildren().clear();
-            box_3.getChildren().clear();
-            loadTasks();
+            updateTasks();
         });
+
+    }
+
+    private void updateTasks() {
+        tasksArray.clear();
+        firstList.clear();
+        secondList.clear();
+        thirdList.clear();
+        scrollPane.setContent(null);
+        scrollPane_2.setContent(null);
+        scrollPane_3.setContent(null);
+        box_1.getChildren().clear();
+        box_2.getChildren().clear();
+        box_3.getChildren().clear();
+        loadTasks();
 
     }
 
@@ -154,11 +191,20 @@ public class BoardController {
             AnchorPane.setTopAnchor(rectangle, 10.0);
             AnchorPane.setLeftAnchor(rectangle, 15.0);
 
-            Button Button = new Button();
-            Button.setOnAction(moveTaskHandler);
+            Button editButton = new Button();
+            editButton.setOnAction(editTaskHandler);
+            editButton.setId(tasksArray.get(i).getId());
+            editButton.setText("\uD83D\uDEE0");
 
-            Button.setId(tasksArray.get(i).getId());
-            Button.setText(">");
+            Button deleteButton = new Button();
+            deleteButton.setOnAction(deleteTaskHandler);
+            deleteButton.setId(tasksArray.get(i).getId());
+            deleteButton.setText("X");
+
+            Button moveButton = new Button();
+            moveButton.setOnAction(moveTaskHandler);
+            moveButton.setId(tasksArray.get(i).getId());
+            moveButton.setText(">");
 
             Text creatorText = new Text(tasksArray.get(i).getCreator());
             creatorText.setFont(Font.font("Segoe WP Bold", 15));
@@ -168,7 +214,7 @@ public class BoardController {
             Text taskText = new Text(tasksArray.get(i).getTask());
             taskText.setFont(Font.font("Segoe WP Light", 13));
             taskText.setCache(false);
-           // taskText.setFontSmoothingType(FontSmoothingType.LCD);
+            // taskText.setFontSmoothingType(FontSmoothingType.LCD);
 
             creatorText.setWrappingWidth(170);
             taskText.setWrappingWidth(180);
@@ -176,9 +222,13 @@ public class BoardController {
             AnchorPane.setLeftAnchor(taskText, 20.0);
             AnchorPane.setTopAnchor(creatorText, 85.0);
             AnchorPane.setLeftAnchor(creatorText, 30.0);
-            AnchorPane.setTopAnchor(Button, 80.0);
-            AnchorPane.setRightAnchor(Button, 10.0);
-            anchorPane.getChildren().addAll(rectangle, taskText, Button,creatorText);
+            AnchorPane.setTopAnchor(moveButton, 80.0);
+            AnchorPane.setRightAnchor(moveButton, 10.0);
+            AnchorPane.setTopAnchor(deleteButton, 20.0);
+            AnchorPane.setRightAnchor(deleteButton, 10.0);
+            AnchorPane.setTopAnchor(editButton, 50.0);
+            AnchorPane.setRightAnchor(editButton, 8.0);
+            anchorPane.getChildren().addAll(rectangle, taskText, moveButton, creatorText, deleteButton, editButton);
             anchorPane.setCache(false);
 
             if (tasksArray.get(i).getStage().equalsIgnoreCase("1")) {
