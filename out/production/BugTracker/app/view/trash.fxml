@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="438.0" style="-fx-background-color: #23374D;" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.trashController">
+   <children>
+      <AnchorPane prefHeight="102.0" prefWidth="438.0" style="-fx-background-color: #23374D;">
+         <children>
+            <Text fill="WHITE" layoutX="181.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Удалено">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+      <ScrollPane fx:id="scrollPane" layoutX="86.0" layoutY="102.0" prefHeight="405.0" prefWidth="266.0" styleClass="edge-to-edge" />
+   </children>
+</AnchorPane>

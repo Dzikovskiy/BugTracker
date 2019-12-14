@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
@@ -24,6 +25,10 @@ import java.util.List;
 
 public class BoardController {
 
+    @FXML
+    private Button tableButton;
+    @FXML
+    private Button trashButton;
     @FXML
     private Button updateButton;
     @FXML
@@ -68,18 +73,18 @@ public class BoardController {
         }
     };
 
-    private EventHandler<ActionEvent> deleteTaskHandler = event -> {
+    private EventHandler<ActionEvent> moveToTrashTaskHandler = event -> {
         String id = ((Control) event.getSource()).getId();
 
-        ServerAgent.sendDataToServer(Commands.DELETE_TASK);
+        ServerAgent.sendDataToServer(Commands.TRASH_TASK);
         ServerAgent.sendDataToServer(id);
         String[] result = ServerAgent.getDataFromServer().split(" ");
 
-        if (result[0].equalsIgnoreCase("deleted")) {
-            System.out.println("Task deleted");
+        if (result[0].equalsIgnoreCase("trashed")) {
+            System.out.println("Task moved to trash");
             updateTasks();
         } else if (result[0].equalsIgnoreCase("error")) {
-            System.out.println("Error while deleting");
+            System.out.println("Error while moving");
         } else {
             System.out.println("Error: wrong data from server");
         }
@@ -97,6 +102,7 @@ public class BoardController {
         SceneOpener.openNewScene("/app/view/edit.fxml");
     };
 
+
     @FXML
     void initialize() {
 
@@ -108,6 +114,12 @@ public class BoardController {
         });
         updateButton.setOnAction(event -> {
             updateTasks();
+        });
+        trashButton.setOnAction(event -> {
+            SceneOpener.openNewScene("/app/view/trash.fxml");
+        });
+        tableButton.setOnAction(event -> {
+            SceneOpener.openNewScene("/app/view/table.fxml");
         });
 
     }
@@ -145,7 +157,7 @@ public class BoardController {
         }
     }
 
-    private void getTasks(ArrayList tasksArr) {
+    public static void getTasks(ArrayList tasksArr) {
 
         // sending command to server
         ServerAgent.sendDataToServer(Commands.GET_TASKS);
@@ -195,26 +207,33 @@ public class BoardController {
             editButton.setOnAction(editTaskHandler);
             editButton.setId(tasksArray.get(i).getId());
             editButton.setText("\uD83D\uDEE0");
+            editButton.setCache(false);
 
             Button deleteButton = new Button();
-            deleteButton.setOnAction(deleteTaskHandler);
+            deleteButton.setOnAction(moveToTrashTaskHandler);
             deleteButton.setId(tasksArray.get(i).getId());
             deleteButton.setText("X");
+            deleteButton.setCache(false);
 
             Button moveButton = new Button();
             moveButton.setOnAction(moveTaskHandler);
             moveButton.setId(tasksArray.get(i).getId());
             moveButton.setText(">");
+            moveButton.setCache(false);
 
             Text creatorText = new Text(tasksArray.get(i).getCreator());
             creatorText.setFont(Font.font("Segoe WP Bold", 15));
             creatorText.setCache(false);
-            //creatorText.setFontSmoothingType(FontSmoothingType.LCD);
+            creatorText.setFontSmoothingType(FontSmoothingType.LCD);
+            creatorText.setStrokeType(StrokeType.OUTSIDE);
+            creatorText.setStrokeWidth(0.0);
 
             Text taskText = new Text(tasksArray.get(i).getTask());
             taskText.setFont(Font.font("Segoe WP Light", 13));
             taskText.setCache(false);
-            // taskText.setFontSmoothingType(FontSmoothingType.LCD);
+            taskText.setFontSmoothingType(FontSmoothingType.LCD);
+            taskText.setStrokeType(StrokeType.OUTSIDE);
+            taskText.setStrokeWidth(0.0);
 
             creatorText.setWrappingWidth(170);
             taskText.setWrappingWidth(180);
@@ -235,7 +254,7 @@ public class BoardController {
                 firstList.add(anchorPane);
             } else if (tasksArray.get(i).getStage().equalsIgnoreCase("2")) {
                 secondList.add(anchorPane);
-            } else {
+            } else if (tasksArray.get(i).getStage().equalsIgnoreCase("3")) {
                 thirdList.add(anchorPane);
             }
         }

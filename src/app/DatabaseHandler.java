@@ -96,6 +96,44 @@ public class DatabaseHandler extends Configs {
         return b;
 
     }
+    public boolean backTask(String id) {
+        String insert = "UPDATE " + Const.TASK_TABLE + " SET " + Const.TASKS_STAGE + "=?"
+                + "WHERE " + "(" + Const.TASKS_ID + "=?" + ")";
+        boolean b = false;
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.setString(1, "1");
+            preparedStatement.setString(2, id);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Task backed successfully.");
+            b = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            b = false;
+        }
+        return b;
+
+    }
+    public boolean trashTask(String id) {
+        String insert = "UPDATE " + Const.TASK_TABLE + " SET " + Const.TASKS_STAGE + "=?"
+                + "WHERE " + "(" + Const.TASKS_ID + "=?" + ")";
+        boolean b = false;
+        try {
+            PreparedStatement preparedStatement = getDbConnection().prepareStatement(insert);
+            preparedStatement.setString(1, "4");
+            preparedStatement.setString(2, id);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Task moved to trash successfully.");
+            b = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            b = false;
+        }
+        return b;
+
+    }
 
     public boolean getTasks(StringBuilder dataString) {
         ResultSet resultSet = null;

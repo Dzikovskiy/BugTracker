@@ -35,7 +35,7 @@ public class TaskAddController {
             if (!taskText.equals("") && !creatorText.equals("")) {
                 saveTask(taskText, creatorText);
             } else {
-                System.out.println("Login error: empty fields ");
+                System.out.println("Adding error: empty fields ");
                 Shaker.shakeFields(task_field, creator_field);
             }
         });
