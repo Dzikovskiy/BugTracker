@@ -54,8 +54,16 @@ public class Server {
                                 saveTask(outputStream, QueryHandler.getQuery(inputStream));
                             } else if (clientCommand.equalsIgnoreCase(Commands.GET_TASKS)) {
                                 sendTasks(outputStream);
-                            }else if(clientCommand.equalsIgnoreCase(Commands.MOVE_TASK)){
-                                moveTask(outputStream,QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.MOVE_TASK)) {
+                                moveTask(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.DELETE_TASK)) {
+                                deleteTask(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.EDIT_TASK)) {
+                                editTask(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.BACK_TASK)) {
+                                backTask(outputStream, QueryHandler.getQuery(inputStream));
+                            } else if (clientCommand.equalsIgnoreCase(Commands.TRASH_TASK)) {
+                                trashTask(outputStream, QueryHandler.getQuery(inputStream));
                             }
 
 
@@ -75,6 +83,49 @@ public class Server {
 
         }
 
+    }
+
+    private void trashTask(OutputStream outputStream, String query) throws IOException {
+        String[] data = query.split(" ");
+        if (handler.trashTask(data[0])) {
+            outputStream.write("trashed".getBytes());
+            System.out.println("Tasks moved to trash");
+        } else {
+            outputStream.write("error".getBytes());
+        }
+    }
+
+    private void backTask(OutputStream outputStream, String query) throws IOException {
+        String[] data = query.split(" ");
+        if (handler.backTask(data[0])) {
+            outputStream.write("backed".getBytes());
+            System.out.println("Tasks backed");
+        } else {
+            outputStream.write("error".getBytes());
+        }
+    }
+
+    private void editTask(OutputStream outputStream, String query) throws IOException {
+        String[] dataCommaSplitted = query.split(",");
+        String[] data = dataCommaSplitted[1].split(" ");
+        String taskData = dataCommaSplitted[0];
+        String creator = data[0];
+        String id = data[1];
+        if (handler.editTask(taskData, creator, id)) {
+            outputStream.write("edited".getBytes());
+        } else {
+            outputStream.write("error".getBytes());
+        }
+    }
+
+    private void deleteTask(OutputStream outputStream, String query) throws IOException {
+        String[] data = query.split(" ");
+        if (handler.deleteTask(data[0])) {
+            outputStream.write("deleted".getBytes());
+            System.out.println("Tasks deleted");
+        } else {
+            outputStream.write("error".getBytes());
+        }
     }
 
     private void moveTask(OutputStream outputStream, String query) throws IOException {
